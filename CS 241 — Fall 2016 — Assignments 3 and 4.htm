@@ -1,0 +1,410 @@
+
+<!-- saved from url=(0046)https://www.student.cs.uwaterloo.ca/~cs241/a3/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>CS 241 — Fall 2016 — Assignments 3 and 4</title><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head><body>
+<a name="a3"></a>
+<h1>CS 241 — Winter 2017 — Assignment 3</h1>
+<table align="center">
+<colgroup><col width="33%"><col width="33%"><col width="33%">
+</colgroup><tbody><tr><th colspan="3"><a href="https://www.student.cs.uwaterloo.ca/~cs241/#assignments">Assignments</a> for <a href="https://www.student.cs.uwaterloo.ca/~cs241/">CS 241</a></th></tr>
+<tr>
+<td><a href="https://www.student.cs.uwaterloo.ca/~cs241/a2/">← Assignment 2</a></td>
+<td align="center">Assignment 3</td>
+<td align="right"><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">Assignment 4 ↓</a></td>
+</tr>
+<tr>
+<td>Friday, January 20, 2017 at 5:00 pm</td>
+<th>Friday, January 27, 2017 at 5:00 pm</th>
+<td align="right">Friday, February 3, 2017 at 5:00 pm</td>
+</tr>
+<tr><td align="center" colspan="3"><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3p1">P1</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3p2">P2</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3p3">P3</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3p4">P4</a></td></tr>
+</tbody></table>
+<p>Assignments 3 and 4 may be done in either <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#racket">Racket</a> or
+<a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#cpp">C++14</a> or <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#scala">Scala</a>.  See
+language-specific notes for each option at the end of this document.</p>
+
+<p>In assignments 3 and 4, you will incrementally write an assembler for
+<a href="https://www.student.cs.uwaterloo.ca/~cs241/mips/mipsasm.html">MIPS assembly language (CS241 dialect)</a>. </p>
+
+<p><b>Note carefully:</b>
+In order to do assignment 4, you must do assignment 3 first.
+We will not be distributing a solution to assignment 3 for you
+to use as a starting point for assignment 4.
+</p>
+
+<p>
+
+Reminder:
+For this and future assignments, be sure to run the command
+<tt>source /u/cs241/setup</tt> to gain access to the CS 241 tools.
+
+</p><h2>Part I. Tree Parsing</h2>
+
+<a name="a3p1">
+</a><h3>Problem 1 — 15 marks of 66 (filename: <tt>traverse.rkt</tt>
+or <tt>traverse.cc</tt> or <tt>Traverse.scala</tt>)</h3>
+
+<p>Write a Racket, C++, or Scala program that reads a pre-order traversal of a non-empty tree
+from standard input and prints the corresponding post-order traversal for
+that tree. Each line of both the input and output will consist of two non-negative integers:</p>
+
+<pre>&lt;NODE-VALUE&gt; &lt;NUMBER-OF-CHILDREN&gt;</pre>
+
+<p>for example the following input:</p>
+
+<pre>1 3
+2 2
+5 0
+6 0
+3 1
+7 0
+4 4
+8 0
+9 0
+10 0
+11 1
+12 0
+</pre>
+
+<p>corresponds to <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/tree.png">this tree</a>.</p>
+
+and the output of the program given the above input would be:
+
+<pre>5 0
+6 0
+2 2
+7 0
+3 1
+8 0
+9 0
+10 0
+12 0
+11 1
+4 4
+1 3
+</pre>
+
+
+<p>
+
+Test your program with different input.
+
+</p><p>
+<b>You must solve this problem by constructing a tree from the given pre-order
+traversal, and then performing a post-order traversal on this tree.  We reserve
+the right to hand-check that you have done this.</b>
+</p><p>
+
+Submit a file called <tt>traverse.rkt</tt> or <tt>traverse.cc</tt> or <tt>Traverse.scala</tt> containing the Racket, C++, or Scala
+source code for your program.
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3">here</a> to return to the top of Assignment 3.
+
+</p><h2>Part II. Writing an Assembler</h2>For the remaining problems in
+assignment 3 and assignment 4 you will implement an assembler for
+progressively larger subsets of MIPS assembly language.  Subject to the
+assumptions stated in the problems, your assembler must report all errors,
+and must correctly translate all correct assembly language programs to
+MIPS machine language.
+
+<p>
+
+We have provided a scanner (also called a tokenizer) for MIPS assembly language
+for each available language option (see
+<a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#language">language-specific notes</a>). You should use this scanner as a starting point for your assembler.
+
+</p><p>
+
+Each problem in Part II requires you to submit a program that reads from
+standard input and writes to standard output as
+well as standard error.<b> The input and output specifications are
+identical regardless of which language you choose.</b> The only difference
+is that you must submit the appropriate
+<tt>.rkt</tt> or <tt>.cc</tt> or <tt>.scala</tt> file depending on
+your choice of language.
+
+
+</p><p>
+
+For each problem, we ask you to implement support for additional
+instructions. You may submit the same assembler for all the problems.
+We encourage you to submit to Marmoset early. As soon as you implement
+support for the instructions specified by a problem, submit the current
+version of your assembler to Marmoset. That way, if you do not complete
+all of the problems before the deadline, you will still get credit for
+those that you did complete.
+
+</p><p>
+
+<i>Hint: Depending on the design decisions you make in your solutions
+    to problems 2 and 3, you may have to restructure your code to get
+    a working solution to problem 4. Therefore, you may want to read
+    and understand all of the problems (especially up to
+    and including problem 4) before beginning problem 2.
+    However, if you find this overwhelming, you may find it easier
+    to just focus on solving problems 2 and 3 first, and deal with
+    problem 4 when you come to it. The decision is yours.
+    </i>
+</p>
+
+<a name="a3p2"></a>
+<h3>Problem 2 — 17 marks of 66 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Begin by writing an assembler that correctly translates input
+containing no labels and no instructions other than <tt>.word</tt>.
+You may assume that the input to your assembler contains no
+labels and no instructions other than <tt>.word</tt>.
+<p>
+Your assembler should never crash, even if the input is not a valid assembly
+language program. Your assembler should not silently ignore errors in the input
+program.
+If the input contains a line that is not valid in MIPS assembly language,
+your assembler should print an appropriate error message containing the word
+ERROR in all capitals to <b>standard error</b> and stop.  It is
+good practice, but not a requirement, to embed ERROR within a
+meaningful error message.</p>
+
+<p>
+<i>Hint: there are relatively few ways in which an assembly language
+    program can be valid (and all the valid forms are spelled out
+    <a href="https://www.student.cs.uwaterloo.ca/~cs241/mips/mipsasm.html">here</a>), but many ways in which it can be
+    invalid.
+    You will find it much easier to write code that looks for valid
+    input and rejects everything unexpected,
+    rather than code that explicitly looks for all the different ways
+    in which the input could be invalid.</i>
+</p><p>
+If the input contains a correct MIPS assembly language program,
+your assembler should output the equivalent MIPS machine language
+to standard output.
+</p><p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3">here</a> to return to the top of Assignment 3.
+
+<a name="a3p3"></a>
+</p><h3>Problem 3 — 17 marks of 66 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Add support for label definitions to your assembler.  Other than the
+inclusion of label definitions, the restrictions, assumptions and
+output requirements (including error-checking) stated in problem 2 apply to
+problem 3.
+<p>
+In addition, if the input is a correct MIPS assembly program,
+your assembler should output a symbol table: a listing of the names
+and values of all defined labels  to standard
+error.  The list should be printed on
+several lines, one line for each label in the input. Each line
+should consist of the label (without the trailing colon),
+followed by a space, followed by the value of the label (in decimal).
+The labels may appear in the symbol table in any order.
+</p><p>
+In handling labels, you may use any data structure or
+data structures you choose, but be sure to take efficiency into account.
+</p>
+
+<p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3">here</a> to return to the top of Assignment 3.
+
+<a name="a3p4"></a>
+</p><h3>Problem 4 — 17 marks of 66 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+<p>Modify your assembler to allow labels to be defined and also to be used as
+operands.</p>
+
+<p>Other than the inclusion of label definitions and labels as operands, the
+restrictions, assumptions, and output requirements (including error-checking)
+stated in problem 2 apply to problem 4.  (Note that you need not list the names
+and values of defined labels as in problem 3.)</p>
+
+<p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3">here</a> to return to the top of Assignment 3.
+
+<a name="a4"></a></p><h1><a name="a4">Assignment 4</a></h1>
+<table align="center">
+<colgroup><col width="33%"><col width="33%"><col width="33%">
+</colgroup><tbody><tr><th colspan="3"><a href="https://www.student.cs.uwaterloo.ca/~cs241/#assignments">Assignments</a> for <a href="https://www.student.cs.uwaterloo.ca/~cs241/">CS 241</a></th></tr>
+<tr>
+<td><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a3">↑ Assignment 3</a></td>
+<td align="center">Assignment 4</td>
+<td align="right"><a href="https://www.student.cs.uwaterloo.ca/~cs241/a5">Assignment 5→</a></td>
+</tr>
+<tr>
+<td>Friday, January 27, 2017 at 5:00 pm</td>
+<th>Friday, Feburary 3, 2017 at 5:00 pm</th>
+<td align="right">Friday, February 10, 2017 at 5:00 pm</td>
+</tr>
+<tr><td align="center" colspan="3"><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p1">P1</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p2">P2</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p3">P3</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p4">P4</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p5">P5</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p6">P6</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p7">P7</a> • <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4p8">P8</a></td></tr>
+</tbody></table>
+
+<p><b>Note:</b>  The restrictions, assumptions, and output requirements (including
+error-checking) as stated in assignment 3 apply throughout assignment 4 as
+well.  In addition, your solution for each problem should continue to be
+a correct solution for each problem that came before it (for example, a
+correct solution of A4P3 will also meet the requirements of A4P1 and A4P2).
+</p>
+
+<a name="a4p1"></a>
+<h3>Problem 1 — 9 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle <tt>jr</tt> and <tt>jalr</tt>
+instructions.<p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+
+<a name="a4p2"></a>
+</p><h3>Problem 2 — 9 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle <tt>add, sub, slt,</tt> and
+<tt>sltu</tt> instructions.<p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+
+<a name="a4p3"></a>
+</p><h3>Problem 3 — 9 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle <tt>beq</tt>
+and <tt>bne</tt> instructions
+with an integer or hex constant as the branch offset.<p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+
+<a name="a4p4"></a>
+</p><h3>Problem 4 — 9 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle <tt>beq</tt> and <tt>bne</tt>
+instructions
+with a label as the branch target operand.<p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+
+<a name="a4p5"></a>
+</p><h3>Problem 5 — 8 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle the <tt>lis, mflo,</tt> and
+<tt>mfhi</tt> instructions.<p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+
+<a name="a4p6"></a>
+</p><h3>Problem 6 — 8 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle the
+<tt>mult, multu, div,</tt> and <tt>divu</tt>
+instructions.<p>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+
+<a name="a4p7"></a>
+</p><h3>Problem 7 — 8 marks of 68 (filename: <tt>asm.rkt</tt> or <tt>asm.cc</tt> or <tt>Asm.scala</tt>)</h3>
+Modify your assembler to correctly handle the <tt>sw</tt> and
+<tt>lw</tt>
+instructions.<p>Your assembler should correctly translate any
+MIPS assembly language program, and write ERROR to standard error
+for any input that is not a valid MIPS assembly program.
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+<a name="a4p8"></a>
+</p><h3>Problem 8 — 8 marks of 68 (filename: <tt>relasm.rkt</tt> or <tt>relasm.cc</tt> or <tt>RelAsm.scala</tt>)</h3>
+Execute one of the following Unix commands, depending on your chosen
+implementation language:
+<pre>cp asm.rkt relasm.rkt
+
+cp Asm.scala Relasm.scala
+
+cp asm.cc relasm.cc
+
+</pre>
+Now, modify your relasm file to
+make it a <em>relocatable</em> assembler.  That is, when given an assembly
+file on standard input, it will send the corresponding relocatable MERL code
+to standard output.  All other behaviour should be as stated in problem 7
+(message containing ERROR to standard error on
+erroneous input, etc.).  In particular, to solve this problem, you must
+compute the correct MERL header and relocation table and surround your output
+with these.  You may find the provided tool <tt>printmerl</tt>
+(e.g. <tt>printmerl &lt; foo.merl</tt>) helpful for verifying your solution.
+
+<p><i>You are not being asked to support linking and are therefore not required to implement .import and .export</i>
+
+</p><p>Click <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/#a4">here</a> to return to the top of Assignment 4.
+<a name="language">
+</a></p><h1><a name="language">Language-Specific Details</a></h1><a name="language">
+
+</a><a name="racket">
+<h2>Racket</h2>
+</a><p><a name="racket">The provided starter </a><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/asm.rkt"><tt>asm.rkt</tt></a> has a function
+called <tt>scan</tt> that takes as input a string and returns a list of tokens.</p>
+
+The
+<a href="http://www.student.cs.uwaterloo.ca/~cs241/racket/racket-in-241.pdf">Using
+Racket in CS 241</a>
+document contains hints and techniques for using Racket to write the assembler.
+See also the comments in the <a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/asm.rkt">provided scanner</a>.
+
+<p>
+Run a Racket program using the command:
+<tt>racket asm.rkt</tt>
+</p>
+
+<a name="scala">
+<h2>Scala</h2>
+</a><p><a name="scala">The provided starter </a><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/Asm_scala.zip"><tt>Asm_scala.zip</tt></a> has a
+<tt>Seq[Seq[Token]]</tt> called <tt>Asm.tokenLines</tt> which contains the all the tokens in the assembly program.
+You can see an example of its use in <tt>Asm.assemble</tt>.
+</p>
+
+<p>
+When submitting to Marmoset, you should zip all of your <tt>.scala</tt> files into a <tt>.zip</tt> file and submit that to Marmoset.
+</p>
+
+<p>Compile the starter code in Scala using the command <tt>scalac Asm.scala Scanning.scala</tt>. The command will create a number of <tt>.class</tt> files.
+You can then run the code via the command <tt>scala Asm</tt> from the current directory.</p>
+
+<p>Scala has extremely large numbers of members for each class in the standard library. You may find it helpful to use an IDE such as IntelliJ IDEA with autocompletion.</p>
+
+
+<a name="cpp">
+<h2>C++</h2>
+</a><p><a name="cpp">The provided starter </a><a href="https://www.student.cs.uwaterloo.ca/~cs241/a3/asm.zip"><tt>asm.zip</tt></a>
+has a method called <tt>ASM::Lexer::scan</tt> that returns a vector of token pointers.</p>
+
+<p>
+When submitting to Marmoset, if you have chosen C++, you will need to add all of your files to a .zip (or similar archive) and submit that to Marmoset.
+</p>
+
+<p>
+The <a href="https://www.student.cs.uwaterloo.ca/~cs241/stl.pdf">STL Quick Reference for CS 241</a> document outlines the parts of the STL most likely to be of use in CS 241.
+</p>
+
+<p>
+You are <b>strongly</b> advised to check for pointer-related errors by vetting
+your programs with valgrind.  To do this, run
+"valgrind <i>program optionsAndArguments</i>"
+instead of just "<i>program optionsAndArguments</i>" on a Linux or
+Macintosh computer — valgrind is not available for the Solaris or Windows
+environments.  <b>Marmoset will run your submissions with valgrind as well, and
+will reject any submission that is reported to leak memory.</b>
+Be aware that running valgrind increases the execution time of your program
+by a factor of 5 to 20.
+</p>
+
+<p>
+Compile a program in C++ using the command
+"<tt>g++ -o asm asm.cc lexer.cc kind.cc</tt>".
+</p>
+<p>
+This command will create a file called <tt>asm</tt> containing
+the compiled code.
+</p><p>
+Run the program using the command:
+<tt>./asm</tt>
+</p>
+
+<!--<a name="c"/>
+<h2>C</h2>
+<p>The provided starter <a href="asm.c"><tt>asm.c</tt></a>
+has a function called <tt>scan</tt> that returns an array of tokens.</p>-->
+
+
+</body></html>
